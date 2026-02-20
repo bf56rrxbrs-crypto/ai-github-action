@@ -11,8 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     if: contains(github.event.issue.labels.*.name, 'needs-triage')
     steps:
+      - uses: actions/checkout@v4
+
       - name: AI Issue Analysis
-        uses: aguirreibarra/ai-github-action@main
+        uses: ./
         with:
           action-type: issue-analyze
           openai-api-key: ${{ secrets.OPENAI_API_KEY }}

@@ -2,9 +2,9 @@
 
 > Supercharge your GitHub workflow with AI-powered automation
 
-[![GitHub stars](https://img.shields.io/github/stars/aguirreibarra/ai-github-action?style=social)](https://github.com/aguirreibarra/ai-github-action/stargazers)
+[![GitHub stars](https://img.shields.io/github/stars/bf56rrxbrs-crypto/ai-github-action?style=social)](https://github.com/bf56rrxbrs-crypto/ai-github-action/stargazers)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Latest Release](https://img.shields.io/github/v/release/aguirreibarra/ai-github-action)](https://github.com/aguirreibarra/ai-github-action/releases)
+[![Latest Release](https://img.shields.io/github/v/release/bf56rrxbrs-crypto/ai-github-action)](https://github.com/bf56rrxbrs-crypto/ai-github-action/releases)
 
 ## ✨ Overview
 
@@ -41,7 +41,7 @@ jobs:
       pull-requests: write
     steps:
       - name: AI PR Review
-        uses: aguirreibarra/ai-github-action@main
+        uses: bf56rrxbrs-crypto/ai-github-action@main
         with:
           action-type: pr-review
           openai-api-key: ${{ secrets.OPENAI_API_KEY }}
@@ -68,7 +68,7 @@ jobs:
     if: github.event.action == 'opened' || contains(github.event.issue.labels.*.name, 'needs-triage')
     steps:
       - name: AI Issue Analysis
-        uses: aguirreibarra/ai-github-action@main
+        uses: bf56rrxbrs-crypto/ai-github-action@main
         with:
           action-type: issue-analyze
           openai-api-key: ${{ secrets.OPENAI_API_KEY }}
@@ -111,7 +111,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: AI Code Scan
-        uses: aguirreibarra/ai-github-action@main
+        uses: bf56rrxbrs-crypto/ai-github-action@main
         with:
           action-type: code-scan
           openai-api-key: ${{ secrets.OPENAI_API_KEY }}
@@ -136,7 +136,7 @@ Control the verbosity of logs by setting the `LOG_LEVEL` environment variable:
 ```yaml
 steps:
   - name: AI PR Review
-    uses: aguirreibarra/ai-github-action@main
+    uses: bf56rrxbrs-crypto/ai-github-action@main
     with:
       action-type: pr-review
       openai-api-key: ${{ secrets.OPENAI_API_KEY }}
