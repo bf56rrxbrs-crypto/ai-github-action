@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: AI PR Review
-        uses: aguirreibarra/ai-github-action@main
+        uses: bf56rrxbrs-crypto/ai-github-action@main
         with:
           # Core configuration
           action-type: pr-review

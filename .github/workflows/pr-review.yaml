@@ -1,17 +1,21 @@
-name: AI Code Scan
+name: AI PR Review
 
 on:
-  workflow_dispatch:
+  pull_request:
+    types: [opened, synchronize]
 
 jobs:
-  scan:
+  pr-review:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
 
-      - name: AI Code Scan
+      - name: AI PR Review
         uses: ./
         with:
-          action-type: code-scan
+          action-type: pr-review
           openai-api-key: ${{ secrets.OPENAI_API_KEY }}
           github-token: ${{ secrets.GITHUB_TOKEN }}

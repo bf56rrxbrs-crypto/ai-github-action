@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: AI Code Scan
-        uses: aguirreibarra/ai-github-action@main
+        uses: bf56rrxbrs-crypto/ai-github-action@main
         with:
           action-type: code-scan
           openai-api-key: ${{ secrets.OPENAI_API_KEY }}
