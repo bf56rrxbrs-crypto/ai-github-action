@@ -3,7 +3,7 @@ import json
 import logging
 import sys
 
-from agents import gen_trace_id, trace
+from agents import gen_trace_id, set_default_openai_key, trace
 
 from src.actions.code_scan import CodeScanAction
 from src.actions.issue_analyze import IssueAnalyzeAction
@@ -55,6 +55,8 @@ async def async_main():
     if not OPENAI_API_KEY:
         logger.fatal("OPENAI_API_KEY input not provided")
         sys.exit(1)
+
+    set_default_openai_key(OPENAI_API_KEY)
 
     # Generate a trace ID for the entire action
     trace_id = gen_trace_id()

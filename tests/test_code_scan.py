@@ -25,6 +25,10 @@ def mock_scan_result():
     result = MagicMock()
     result.final_output = CodeScanResponse(
         overview="Test scan overview",
+        errors=[],
+        gaps=[],
+        misconfigurations=[],
+        missing_data=[],
         issues=[
             CodeIssue(
                 file="src/main.py",
@@ -91,6 +95,39 @@ def test_code_scan_response_model():
     # Create test data
     response = CodeScanResponse(
         overview="Test overview",
+        errors=[
+            CodeIssue(
+                file="test1.py",
+                line=10,
+                severity="high",
+                description="Null pointer dereference",
+                suggestion="Add null check",
+            )
+        ],
+        gaps=[
+            CodeIssue(
+                file="test2.py",
+                severity="medium",
+                description="Missing unit tests for authentication module",
+                suggestion="Add tests for login and logout flows",
+            )
+        ],
+        misconfigurations=[
+            CodeIssue(
+                file="config.yaml",
+                severity="high",
+                description="Debug mode enabled in production config",
+                suggestion="Set DEBUG=false for production",
+            )
+        ],
+        missing_data=[
+            CodeIssue(
+                file=".env.example",
+                severity="low",
+                description="Required DATABASE_URL variable not documented",
+                suggestion="Add DATABASE_URL to .env.example",
+            )
+        ],
         issues=[
             CodeIssue(
                 file="test1.py",
@@ -112,6 +149,14 @@ def test_code_scan_response_model():
 
     # Verify data
     assert response.overview == "Test overview"
+    assert len(response.errors) == 1
+    assert response.errors[0].file == "test1.py"
+    assert len(response.gaps) == 1
+    assert response.gaps[0].severity == "medium"
+    assert len(response.misconfigurations) == 1
+    assert response.misconfigurations[0].file == "config.yaml"
+    assert len(response.missing_data) == 1
+    assert response.missing_data[0].file == ".env.example"
     assert len(response.issues) == 2
     assert response.issues[0].file == "test1.py"
     assert response.issues[1].file == "test2.py"
@@ -126,6 +171,10 @@ def test_code_scan_response_validation():
     # Test missing required fields
     with pytest.raises(ValidationError):
         CodeScanResponse(
+            errors=[],
+            gaps=[],
+            misconfigurations=[],
+            missing_data=[],
             issues=[],
             good_practices=[],
             recommendations=[],
@@ -135,6 +184,58 @@ def test_code_scan_response_validation():
     with pytest.raises(ValidationError):
         CodeScanResponse(
             overview="Test overview",
+            gaps=[],
+            misconfigurations=[],
+            missing_data=[],
+            issues=[],
+            good_practices=[],
+            recommendations=[],
+            # Missing errors
+        )
+
+    with pytest.raises(ValidationError):
+        CodeScanResponse(
+            overview="Test overview",
+            errors=[],
+            misconfigurations=[],
+            missing_data=[],
+            issues=[],
+            good_practices=[],
+            recommendations=[],
+            # Missing gaps
+        )
+
+    with pytest.raises(ValidationError):
+        CodeScanResponse(
+            overview="Test overview",
+            errors=[],
+            gaps=[],
+            missing_data=[],
+            issues=[],
+            good_practices=[],
+            recommendations=[],
+            # Missing misconfigurations
+        )
+
+    with pytest.raises(ValidationError):
+        CodeScanResponse(
+            overview="Test overview",
+            errors=[],
+            gaps=[],
+            misconfigurations=[],
+            issues=[],
+            good_practices=[],
+            recommendations=[],
+            # Missing missing_data
+        )
+
+    with pytest.raises(ValidationError):
+        CodeScanResponse(
+            overview="Test overview",
+            errors=[],
+            gaps=[],
+            misconfigurations=[],
+            missing_data=[],
             good_practices=[],
             recommendations=[],
             # Missing issues
@@ -143,6 +244,10 @@ def test_code_scan_response_validation():
     with pytest.raises(ValidationError):
         CodeScanResponse(
             overview="Test overview",
+            errors=[],
+            gaps=[],
+            misconfigurations=[],
+            missing_data=[],
             issues=[],
             recommendations=[],
             # Missing good_practices
@@ -151,6 +256,10 @@ def test_code_scan_response_validation():
     with pytest.raises(ValidationError):
         CodeScanResponse(
             overview="Test overview",
+            errors=[],
+            gaps=[],
+            misconfigurations=[],
+            missing_data=[],
             issues=[],
             good_practices=[],
             # Missing recommendations
